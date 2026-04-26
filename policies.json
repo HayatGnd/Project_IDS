@@ -1,37 +1,26 @@
 [
-  {
-    "name": "deny_secret_external",
-    "effect": "DENY",
-    "priority": 1,
-    "conditions": {
-      "resource.classification": "secret",
-      "user.location": "external"
+    {
+        "name": "deny_secret_external",
+        "effect": "DENY",
+        "priority": 1,
+        "conditions": {
+            "resource.classification": "secret",
+            "user.location": "external"
+        }
+    },
+    {
+        "name": "deny_confidential_external",
+        "effect": "DENY",
+        "priority": 2,
+        "conditions": {
+            "resource.classification": "confidential",
+            "user.location": "external"
+        }
+    },
+    {
+        "id": "allow-all-authenticated",
+        "effect": "ALLOW",
+        "priority": 100,
+        "conditions": {}
     }
-  },
-  {
-    "name": "deny_confidential_external",
-    "effect": "DENY",
-    "priority": 2,
-    "conditions": {
-      "resource.classification": "confidential",
-      "user.location": "external"
-    }
-  },
-  {
-    "name": "deny_after_hours",
-    "effect": "DENY",
-    "priority": 3,
-    "conditions": {
-      "environment.hour": 22
-    }
-  },
-  {
-    "name": "deny_department_mismatch",
-    "effect": "DENY",
-    "priority": 4,
-    "conditions": {
-      "resource.department": "Finance",
-      "user.department": "HR"
-    }
-  }
 ]

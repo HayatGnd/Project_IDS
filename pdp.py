@@ -34,6 +34,7 @@ class RoleBasedAccessControl:
             "employee": ["read"],
             "guest": []
         }
+    
 
     def check_permission(self, role: str, action: str) -> bool:
         if role not in self.permissions:
@@ -55,6 +56,8 @@ class AttributeBasedAccessControl:
         "secret": 3,
         "top-secret": 4
     }
+    
+
 
     def check_department_match(self, user_dept: str, resource_dept: str) -> bool:
         if user_dept.lower() == "it":
@@ -90,19 +93,20 @@ class PolicyEngine:
         self.policies = []
         self.load_policies()
 
-    def load_policies(self) -> bool:
+    def load_policies(self):
         try:
             if not os.path.exists(self.policies_file):
                 self.policies = []
                 return False
-            with open(self.policies_file, "r", encoding="utf-8") as f:
+            with open(self.policies_file, "r" , encoding="utf-8") as f:
                 self.policies = json.load(f)
             self.policies.sort(key=lambda p: p.get("priority", 100))
             return True
-        except Exception:
+        except Exception as e:
             self.policies = []
             return False
-
+            
+    
     def evaluate_condition(self, condition_key: str, condition_value: Any,
                            context: Dict[str, Any]) -> bool:
         try:
@@ -118,21 +122,27 @@ class PolicyEngine:
             return value == condition_value
         except Exception:
             return False
-
-    def evaluate_policy(self, policy: Dict[str, Any],
-                        context: Dict[str, Any]) -> Optional[str]:
+    def evaluate_policy(self, policy: Dict[str, Any], context: Dict[str, Any]) -> str:
         conditions = policy.get("conditions", {})
         for cond_key, cond_value in conditions.items():
             if not self.evaluate_condition(cond_key, cond_value, context):
                 return None
         return policy.get("effect", "DENY")
-
+    
     def evaluate_policies(self, context: Dict[str, Any]) -> str:
         for policy in self.policies:
-            decision = self.evaluate_policy(policy, context)
-            if decision is not None:
-                return decision
+            if policy.get("effect") == "DENY":
+                decision = self.evaluate_policy(policy, context)
+                if decision == "DENY":
+                    return "DENY"
+        for policy in self.policies:
+            if policy.get("effect") == "ALLOW":
+                decision = self.evaluate_policy(policy, context)
+                if decision == "ALLOW":
+                    return "ALLOW"
         return "DENY"
+        
+                
 
 
 class PolicyDecisionPoint:
@@ -151,7 +161,7 @@ class PolicyDecisionPoint:
                       environment: Optional[Dict[str, Any]] = None) -> Tuple[str, Dict[str, Any]]:
         if environment is None:
             environment = {}
-
+        # journal de toutes les vérifications effectuées
         details = {"evaluated_checks": []}
 
         rbac_result = self.rbac.check_permission(user.get("role", "guest"), action)

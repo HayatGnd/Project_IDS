@@ -48,23 +48,9 @@ class ResourceServer:
         }
 
     def validate_ticket_and_authorize(self, service_ticket: str, service: str,
-                                     action: str, resource_id: str,
-                                     ip_address: Optional[str] = None) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
-        """
-        Validates service ticket and authorizes access.
-        
-        Args:
-            service_ticket: Encrypted service ticket
-            service: Target service name
-            action: Action to perform (read, write, delete)
-            resource_id: Resource identifier
-            ip_address: Client IP address
-            
-        Returns:
-            (authorized, resource_data, error_message)
-        """
+                                      action: str, resource_id: str,
+                                      ip_address: Optional[str] = None) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
         try:
-            # Step 1: Validate service ticket with KDC
             is_valid, ticket_data = self.kdc.validate_service_ticket(service_ticket, service)
             if not is_valid:
                 self.audit_logger.log_ticket_validation_failure(
@@ -74,7 +60,6 @@ class ResourceServer:
                 )
                 return False, None, "Invalid service ticket"
 
-            # Step 2: Extract user attributes from ticket
             user = {
                 "id": ticket_data.get("username"),
                 "role": ticket_data.get("attributes", {}).get("role"),
@@ -83,12 +68,10 @@ class ResourceServer:
                 "location": ticket_data.get("attributes", {}).get("location")
             }
 
-            # Step 3: Get resource attributes
             resource = self.resources.get(resource_id)
             if not resource:
                 return False, None, "Resource not found"
 
-            # Step 4: Call PDP for authorization decision
             environment = {"ip": ip_address, "time": datetime.utcnow().isoformat()}
             decision, details = self.pdp.make_decision(user, resource, action, environment)
 
@@ -103,65 +86,15 @@ class ResourceServer:
             return False, None, error_msg
 
     def get_resource(self, service_ticket: str, resource_id: str,
-                    ip_address: Optional[str] = None) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
+                     ip_address: Optional[str] = None) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
         """Get a resource (READ operation)."""
         return self.validate_ticket_and_authorize(service_ticket, "resource-server",
-                                                 "read", resource_id, ip_address)
+                                                  "read", resource_id, ip_address)
 
     def create_resource(self, service_ticket: str, resource_data: Dict[str, Any],
-                       ip_address: Optional[str] = None) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
+                        ip_address: Optional[str] = None) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
         """Create a new resource (WRITE operation)."""
-        # For simplicity, we'll just authorize the write operation
-        # In a real system, you'd validate the resource data and create it
-        authorized, _, error = self.validate_ticket_and_authorize(
-            service_ticket, "resource-server", "write", "new", ip_address
-        )
-        if authorized:
-            # Create new resource with auto-generated ID
-            new_id = str(len(self.resources) + 1)
-            new_resource = {
-                "id": new_id,
-                "name": resource_data.get("name", "New Resource"),
-                "department": resource_data.get("department", "General"),
-                "classification": resource_data.get("classification", "public"),
-                "access_location": resource_data.get("access_location", "any"),
-                "allowed_hours": resource_data.get("allowed_hours"),
-                "content": resource_data.get("content", "")
-            }
-            self.resources[new_id] = new_resource
-            return True, new_resource, None
-        return False, None, error
-
-    def update_resource(self, service_ticket: str, resource_id: str,
-                       resource_data: Dict[str, Any],
-                       ip_address: Optional[str] = None) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
-        """Update an existing resource (WRITE operation)."""
-        authorized, resource, error = self.validate_ticket_and_authorize(
-            service_ticket, "resource-server", "write", resource_id, ip_address
-        )
-        if authorized and resource:
-            # Update resource data
-            resource.update(resource_data)
-            return True, resource, None
-        return False, None, error
-
-    def delete_resource(self, service_ticket: str, resource_id: str,
-                       ip_address: Optional[str] = None) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
-        """Delete a resource (DELETE operation)."""
-        authorized, resource, error = self.validate_ticket_and_authorize(
-            service_ticket, "resource-server", "delete", resource_id, ip_address
-        )
-        if authorized and resource:
-            # Remove resource
-            del self.resources[resource_id]
-            return True, resource, None
-        return False, None, error
-
-    def list_resources(self, service_ticket: str,
-                      ip_address: Optional[str] = None) -> Tuple[bool, Optional[List[Dict[str, Any]]], Optional[str]]:
-        """List all accessible resources."""
         try:
-            # Validate ticket first
             is_valid, ticket_data = self.kdc.validate_service_ticket(service_ticket, "resource-server")
             if not is_valid:
                 return False, None, "Invalid service ticket"
@@ -174,7 +107,75 @@ class ResourceServer:
                 "location": ticket_data.get("attributes", {}).get("location")
             }
 
-            # Filter resources user can access
+            temp_resource = {
+                "id": "new",
+                "department": resource_data.get("department", "General"),
+                "classification": resource_data.get("classification", "public"),
+                "access_location": resource_data.get("access_location", "any"),
+                "allowed_hours": resource_data.get("allowed_hours")
+            }
+
+            environment = {"ip": ip_address, "time": datetime.utcnow().isoformat()}
+            decision, _ = self.pdp.make_decision(user, temp_resource, "write", environment)
+
+            if decision == "ALLOW":
+                new_id = str(len(self.resources) + 1)
+                new_resource = {
+                    "id": new_id,
+                    "name": resource_data.get("name", "New Resource"),
+                    "department": resource_data.get("department", "General"),
+                    "classification": resource_data.get("classification", "public"),
+                    "access_location": resource_data.get("access_location", "any"),
+                    "allowed_hours": resource_data.get("allowed_hours"),
+                    "content": resource_data.get("content", "")
+                }
+                self.resources[new_id] = new_resource
+                return True, new_resource, None
+            else:
+                return False, None, "Access denied by policy"
+
+        except Exception as e:
+            return False, None, f"Create resource failed: {str(e)}"
+
+    def update_resource(self, service_ticket: str, resource_id: str,
+                        resource_data: Dict[str, Any],
+                        ip_address: Optional[str] = None) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
+        """Update an existing resource (WRITE operation)."""
+        authorized, resource, error = self.validate_ticket_and_authorize(
+            service_ticket, "resource-server", "write", resource_id, ip_address
+        )
+        if authorized and resource:
+            resource.update(resource_data)
+            return True, resource, None
+        return False, None, error
+
+    def delete_resource(self, service_ticket: str, resource_id: str,
+                        ip_address: Optional[str] = None) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
+        """Delete a resource (DELETE operation)."""
+        authorized, resource, error = self.validate_ticket_and_authorize(
+            service_ticket, "resource-server", "delete", resource_id, ip_address
+        )
+        if authorized and resource:
+            del self.resources[resource_id]
+            return True, resource, None
+        return False, None, error
+
+    def list_resources(self, service_ticket: str,
+                       ip_address: Optional[str] = None) -> Tuple[bool, Optional[List[Dict[str, Any]]], Optional[str]]:
+        """List all accessible resources."""
+        try:
+            is_valid, ticket_data = self.kdc.validate_service_ticket(service_ticket, "resource-server")
+            if not is_valid:
+                return False, None, "Invalid service ticket"
+
+            user = {
+                "id": ticket_data.get("username"),
+                "role": ticket_data.get("attributes", {}).get("role"),
+                "department": ticket_data.get("attributes", {}).get("department"),
+                "clearance": ticket_data.get("attributes", {}).get("clearance"),
+                "location": ticket_data.get("attributes", {}).get("location")
+            }
+
             accessible_resources = []
             for resource_id, resource in self.resources.items():
                 decision, _ = self.pdp.make_decision(user, resource, "read")

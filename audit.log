@@ -1,0 +1,87 @@
+2026-04-26 07:12:41,327 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 07:12:41,333 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 07:12:41,355 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 07:12:43,404 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS
+2026-04-26 07:12:45,447 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 2 | Action: read | Result: DENY
+2026-04-26 07:12:49,559 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 1 | Action: read | Result: DENY
+2026-04-26 07:12:49,587 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 2 | Action: read | Result: DENY
+2026-04-26 07:12:49,601 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 3 | Action: read | Result: DENY
+2026-04-26 07:49:15,870 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 07:49:15,883 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 07:49:15,892 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 07:49:17,941 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS
+2026-04-26 07:49:24,077 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 1 | Action: read | Result: DENY
+2026-04-26 08:00:13,662 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 08:00:13,681 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 08:00:13,692 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 08:00:15,737 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS
+2026-04-26 08:00:17,827 - AuditLogger - WARNING - [TICKET_VALIDATION_FAILURE] | Action: TICKET_VALIDATION | Result: FAILURE
+2026-04-26 08:00:21,924 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 1 | Action: read | Result: DENY
+2026-04-26 08:17:37,111 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 08:17:37,133 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 08:17:37,144 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 08:17:39,185 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS
+2026-04-26 08:17:41,263 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 2 | Action: read | Result: DENY
+2026-04-26 08:17:45,375 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 1 | Action: read | Result: DENY
+2026-04-26 08:17:45,392 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 2 | Action: read | Result: DENY
+2026-04-26 08:17:45,403 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 3 | Action: read | Result: DENY
+2026-04-26 08:37:15,283 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 08:37:15,303 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 08:37:15,316 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 08:37:17,361 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS
+2026-04-26 08:37:19,413 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 2 | Action: read | Result: DENY
+2026-04-26 08:37:21,487 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: new | Action: write | Result: DENY
+2026-04-26 08:37:23,544 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 1 | Action: read | Result: DENY
+2026-04-26 08:37:23,555 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 2 | Action: read | Result: DENY
+2026-04-26 08:37:23,567 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 3 | Action: read | Result: DENY
+2026-04-26 08:39:54,475 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 08:39:54,489 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 08:39:54,503 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 08:39:56,568 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS
+2026-04-26 08:39:58,640 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 2 | Action: read | Result: DENY
+2026-04-26 08:40:00,688 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: new | Action: write | Result: DENY
+2026-04-26 08:40:02,725 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 1 | Action: read | Result: DENY
+2026-04-26 08:40:02,737 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 2 | Action: read | Result: DENY
+2026-04-26 08:40:02,749 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 3 | Action: read | Result: DENY
+2026-04-26 08:42:42,405 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 08:42:42,418 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 08:42:42,429 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 08:42:44,469 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS
+2026-04-26 08:42:46,527 - AuditLogger - INFO - [ACCESS_ALLOWED] | User: alice | Resource: 2 | Action: read | Result: ALLOW
+2026-04-26 08:42:48,593 - AuditLogger - INFO - [ACCESS_ALLOWED] | User: alice | Resource: new | Action: write | Result: ALLOW
+2026-04-26 08:42:50,642 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 1 | Action: read | Result: DENY
+2026-04-26 08:42:50,666 - AuditLogger - INFO - [ACCESS_ALLOWED] | User: alice | Resource: 2 | Action: read | Result: ALLOW
+2026-04-26 08:42:50,689 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 3 | Action: read | Result: DENY
+2026-04-26 08:42:50,713 - AuditLogger - INFO - [ACCESS_ALLOWED] | User: alice | Resource: 4 | Action: read | Result: ALLOW
+2026-04-26 08:50:27,434 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 08:50:27,494 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 08:50:27,523 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 08:51:13,402 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS
+2026-04-26 08:52:24,189 - AuditLogger - INFO - [ACCESS_ALLOWED] | User: alice | Resource: new | Action: write | Result: ALLOW
+2026-04-26 08:58:08,121 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 1 | Action: delete | Result: DENY
+2026-04-26 08:59:46,799 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 08:59:46,829 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 08:59:46,862 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 08:59:54,853 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS
+2026-04-26 09:00:11,410 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 1 | Action: delete | Result: DENY
+2026-04-26 09:01:46,790 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 09:01:46,803 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 09:01:46,816 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 09:01:54,647 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS
+2026-04-26 09:02:06,562 - AuditLogger - INFO - [ACCESS_ALLOWED] | User: alice | Resource: 2 | Action: delete | Result: ALLOW
+2026-04-26 09:11:59,460 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 1 | Action: read | Result: DENY
+2026-04-26 09:11:59,489 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 3 | Action: read | Result: DENY
+2026-04-26 09:11:59,502 - AuditLogger - INFO - [ACCESS_ALLOWED] | User: alice | Resource: 4 | Action: read | Result: ALLOW
+2026-04-26 09:12:45,056 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 09:12:45,070 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 09:12:45,083 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 09:13:41,745 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS
+2026-04-26 09:14:01,297 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 1 | Action: read | Result: DENY
+2026-04-26 09:14:01,311 - AuditLogger - WARNING - [ACCESS_DENIED] | User: alice | Resource: 3 | Action: read | Result: DENY
+2026-04-26 09:14:01,324 - AuditLogger - INFO - [ACCESS_ALLOWED] | User: alice | Resource: 4 | Action: read | Result: ALLOW
+2026-04-26 09:14:37,520 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 09:14:37,535 - AuditLogger - WARNING - [LOGIN_FAILURE] | User: alice | Action: LOGIN | Result: FAILURE
+2026-04-26 09:15:23,286 - AuditLogger - INFO - [LOGIN_ATTEMPT] | User: alice | Action: LOGIN
+2026-04-26 09:15:23,303 - AuditLogger - INFO - [LOGIN_SUCCESS] | User: alice | Action: LOGIN | Result: SUCCESS
+2026-04-26 09:15:23,317 - AuditLogger - INFO - [TGT_ISSUED] | User: alice | Action: TGT_ISSUE | Result: SUCCESS
+2026-04-26 09:15:39,097 - AuditLogger - INFO - [SERVICE_TICKET_ISSUED] | User: alice | Action: SERVICE_TICKET_ISSUE | Result: SUCCESS

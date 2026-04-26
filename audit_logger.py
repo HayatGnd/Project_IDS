@@ -224,6 +224,19 @@ class AuditLogger:
             details={"ticket_id": ticket_id, "expiration": expiration}
         )
         self.log_event(event)
+    def log_ticket_validation_failure(self, username: Optional[str], ticket_id: str, reason: str, ip_address: Optional[str] = None ) -> None:
+        """Log failed ticket validation"""
+        event = AuditEvent(
+            timestamp=datetime.utcnow().isoformat(),
+            event_type=AuditEventType.TICKET_VALIDATION_FAILURE.value,
+            severity=SeverityLevel.WARNING.value,
+            user=username,
+            action="TICKET_VALIDATION",
+            result="FAILURE",
+            error_message=reason,
+            details={"ticket_id": ticket_id}
+        )
+        self.log_event(event)
 
     def log_access_allowed(self, username: str, resource: str, action: str,
                           details: Optional[Dict[str, Any]] = None) -> None:
